@@ -8,27 +8,27 @@ import pl.home.organizer.application.model.request.CustomerRequestDataModel;
 import pl.home.organizer.application.model.response.CustomerRest;
 import pl.home.organizer.application.service.CustomerService;
 
+
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("dupa")
+@RequestMapping("user")
 public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
     public String getCustomer() {
-        return "My name is ... CZIKI CZIKI SLIM SHADY!";
+        return "MC Young Fatstarson on mic!";
     }
 
     @PostMapping
-    public CustomerRest createCustomer(@RequestBody CustomerRequestDataModel userDetails)
-    {
+    public CustomerRest createCustomer(@RequestBody CustomerRequestDataModel userDetails) {
         CustomerRest returnValue = new CustomerRest();
 
         CustomerDto customerDto = new CustomerDto();
         BeanUtils.copyProperties(userDetails, customerDto);
 
-        CustomerDto createdUser = customerService.createCustomer(customerDto);
-        BeanUtils.copyProperties(createdUser, returnValue);
+        CustomerDto createdCustomer = customerService.createCustomer(customerDto);
+        BeanUtils.copyProperties(createdCustomer, returnValue);
 
         return returnValue;
     }

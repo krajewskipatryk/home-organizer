@@ -7,25 +7,29 @@ import pl.home.organizer.application.dto.CustomerDto;
 import pl.home.organizer.application.entity.CustomerEntity;
 import pl.home.organizer.application.repository.CustomerRepository;
 import pl.home.organizer.application.service.CustomerService;
+import pl.home.organizer.application.utils.UserIdGenerator;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final UserIdGenerator userIdGenerator;
 
     @Override
     public CustomerDto createCustomer(CustomerDto customer) {
 
+        if (customerRepository.findByEmail(customer.getEmail()) != null) throw new RuntimeException("The email address already exists!");
+
         CustomerEntity customerEntity = new CustomerEntity();
         BeanUtils.copyProperties(customer, customerEntity);
 
-        customerEntity.setUserId("123");
+        customerEntity.setUserId(userIdGenerator.generateUserId(30));
         customerEntity.setEncryptedPassword("test");
 
-        CustomerEntity storedUserDetails = customerRepository.save(customerEntity);
+        customerRepository.save(customerEntity);
 
         CustomerDto returnValue = new CustomerDto();
-        BeanUtils.copyProperties(storedUserDetails, returnValue);
+        BeanUtils.copyProperties(customerEntity, returnValue);
 
         return returnValue;
     }
