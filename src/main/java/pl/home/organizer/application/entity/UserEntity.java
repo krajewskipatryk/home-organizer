@@ -12,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="customers")
-public class CustomerEntity {
+@Table(name="users")
+public class UserEntity {
     private static final long serialVersionUID = -2489717557407818997L;
 
     @Id

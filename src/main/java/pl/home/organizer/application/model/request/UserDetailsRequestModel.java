@@ -3,7 +3,7 @@ package pl.home.organizer.application.model.request;
 import lombok.Data;
 
 @Data
-public class CustomerRequestDataModel {
+public class UserDetailsRequestModel {
     String firstName;
     String lastName;
     String email;

@@ -3,7 +3,7 @@ package pl.home.organizer.application.dto;
 import lombok.Data;
 
 @Data
-public class CustomerDto {
+public class UserDto {
     private static final long serialVersionUID = -5778383570944591732L;
     private long id;
     private String userId;
