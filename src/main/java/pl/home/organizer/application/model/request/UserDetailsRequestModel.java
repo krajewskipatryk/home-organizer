@@ -1,8 +1,10 @@
 package pl.home.organizer.application.model.request;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDetailsRequestModel {
     String firstName;
     String lastName;
