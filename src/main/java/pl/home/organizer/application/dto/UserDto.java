@@ -1,12 +1,13 @@
 package pl.home.organizer.application.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDto {
     private static final long serialVersionUID = -5778383570944591732L;
-    private long id;
-    private String userId;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;

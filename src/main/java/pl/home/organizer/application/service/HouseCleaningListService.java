@@ -6,5 +6,5 @@ import pl.home.organizer.application.dto.ListOfHouseCleaningDto;
 
 public interface HouseCleaningListService {
     ListOfHouseCleaningDto getCleaningList();
-    ListOfHouseCleaningDto addCleaner(HouseCleanerDto cleanerDto);
+    HouseCleanerDto addCleaner(HouseCleanerDto cleanerDto);
 }

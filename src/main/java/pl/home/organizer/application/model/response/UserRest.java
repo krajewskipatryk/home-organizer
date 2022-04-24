@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserRest {
-    String userId;
+    String id;
     String firstName;
     String lastName;
     String email;

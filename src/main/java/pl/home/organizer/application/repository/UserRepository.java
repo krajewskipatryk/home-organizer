@@ -7,6 +7,6 @@ import pl.home.organizer.application.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByEmail(String email);
-    UserEntity findByUserId(String userId);
+    UserEntity findById(String id);
 }
 

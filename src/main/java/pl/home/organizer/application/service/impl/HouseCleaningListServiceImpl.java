@@ -28,14 +28,17 @@ public class HouseCleaningListServiceImpl implements HouseCleaningListService {
     }
 
     @Override
-    public ListOfHouseCleaningDto addCleaner(HouseCleanerDto cleanerDto) {
+    public HouseCleanerDto addCleaner(HouseCleanerDto cleanerDto) {
         HouseCleaningListEntity cleanerEntity = new HouseCleaningListEntity();
 
         BeanUtils.copyProperties(cleanerDto, cleanerEntity);
 
         houseCleaningListRepository.save(cleanerEntity);
 
-        return null;
+        HouseCleanerDto returnValue = new HouseCleanerDto();
+        BeanUtils.copyProperties(cleanerEntity, returnValue);
+
+        return returnValue;
     }
 
 }

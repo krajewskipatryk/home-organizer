@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
-        userEntity.setUserId(userIdGenerator.generateUserId(30));
+        userEntity.setId(userIdGenerator.generateUserId(30));
         userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         userRepository.save(userEntity);
@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByUserId(String userId) {
-        UserEntity userEntity = userRepository.findByUserId(userId);
+    public UserDto getUserByUserId(String id) {
+        UserEntity userEntity = userRepository.findById(id);
 
         if (userEntity == null) throw new RuntimeException("User not found!");
 
@@ -69,10 +69,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(String userId, UserDto user) {
-        if (userRepository.findByUserId(userId) == null) throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+        if (userRepository.findById(userId) == null) throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-        UserEntity userEntity = userRepository.findByUserId(userId);
-//        BeanUtils.copyProperties(user, userEntity);
+        UserEntity userEntity = userRepository.findById(userId);
         userEntity.setFirstName(user.getFirstName());
         userEntity.setLastName(user.getLastName());
         userRepository.save(userEntity);
@@ -85,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto deleteUser(String userId) {
-        UserEntity userEntity = userRepository.findByUserId(userId);
+        UserEntity userEntity = userRepository.findById(userId);
 
         if (userEntity == null) throw new UserServiceException(ErrorMessages.COULD_NOT_DELETE_RECORD.getErrorMessage());
 
