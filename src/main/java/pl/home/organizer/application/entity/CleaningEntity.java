@@ -13,8 +13,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="list")
-public class CleaningListHistoryEntity {
+@Table(name="cleaning")
+public class CleaningEntity {
     private static final long serialVersionUID = -5100014457792655083L;
 
     @Id
@@ -22,13 +22,9 @@ public class CleaningListHistoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long order;
 
-    @OneToOne
-    @JoinColumn(name="id")
-    private UserEntity user;
-
     @Column
     private boolean isApproved = false;
 
     @Column
-    private LocalDate cleaningDate;
+    private LocalDate previousCleaningDate;
 }

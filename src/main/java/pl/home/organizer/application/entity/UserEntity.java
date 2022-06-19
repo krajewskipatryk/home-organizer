@@ -1,11 +1,14 @@
 package pl.home.organizer.application.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,16 +26,16 @@ public class UserEntity {
     @Column(length = 50)
     private String firstName;
 
-    @Column(length = 50)
+    @Column
     private String lastName;
 
-    @Column(length = 50)
+    @Column
+    private String password;
+
+    @Column
     private String email;
 
-    private String emailVerificationToken;
-
-    private boolean emailVerificationStatus = false;
-
-    @OneToOne(mappedBy = "user")
-    private CleaningListHistoryEntity cleaningListHistoryEntity;
+    @JsonIgnore
+    @OneToMany
+    private Set<UsersGroupsJoinEntity> groups = new HashSet<>();
 }

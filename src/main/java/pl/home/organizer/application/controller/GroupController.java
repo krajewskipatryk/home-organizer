@@ -5,10 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import pl.home.organizer.application.dto.GroupDto;
 import pl.home.organizer.application.model.request.GroupCreationRequestModel;
-import pl.home.organizer.application.model.request.UserToGroupRequestModel;
 import pl.home.organizer.application.service.GroupService;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,14 +24,9 @@ public class GroupController {
         return "Group has been created correctly";
     }
 
-    @GetMapping(path="/{groupId}")
-    List<String> getUsersList(@PathVariable String groupId) {
-        return groupService.getUsersList(groupId);
-    }
-
-    @PutMapping(path="/{groupId}")
-    String addUserToGroup(@RequestBody UserToGroupRequestModel userDetails, @PathVariable String groupId) {
-        groupService.addUserToGroup(userDetails.getUserId(), groupId);
+    @PutMapping(path="group/{groupId}/user/{userId}")
+    String addUserToGroup( @PathVariable String groupId, @PathVariable String userId) {
+        groupService.addUserToGroup(groupId, userId);
         return "User has been added to the group";
     }
 }

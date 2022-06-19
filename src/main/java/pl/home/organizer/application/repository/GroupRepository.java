@@ -6,4 +6,5 @@ import pl.home.organizer.application.entity.GroupEntity;
 
 @Repository
 public interface GroupRepository extends JpaRepository<GroupEntity, Long> {
+    GroupEntity findById(String groupId);
 }

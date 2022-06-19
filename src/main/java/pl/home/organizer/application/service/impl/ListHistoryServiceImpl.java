@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import pl.home.organizer.application.dto.HouseCleanerDto;
-import pl.home.organizer.application.entity.CleaningListHistoryEntity;
+import pl.home.organizer.application.entity.CleaningEntity;
 import pl.home.organizer.application.repository.ListHistoryRepository;
 import pl.home.organizer.application.service.ListHistoryService;
 
@@ -20,7 +20,7 @@ public class ListHistoryServiceImpl implements ListHistoryService {
 
     @Override
     public HouseCleanerDto addCleaner(HouseCleanerDto cleanerDto) {
-        CleaningListHistoryEntity cleanerEntity = new CleaningListHistoryEntity();
+        CleaningEntity cleanerEntity = new CleaningEntity();
         BeanUtils.copyProperties(cleanerDto, cleanerEntity);
         LocalDate cleaningDate = LocalDate.now();
 
@@ -35,7 +35,7 @@ public class ListHistoryServiceImpl implements ListHistoryService {
 
     @Override
     public List<String> getCleaningList() {
-        List<CleaningListHistoryEntity> houseCleaningList = listHistoryRepository.findAll();
+        List<CleaningEntity> houseCleaningList = listHistoryRepository.findAll();
 
         List<String> convertedValue = houseCleaningList.stream()
                 .map(list -> list.getOrder() + ". " + list.getOrder() + " user cleaned at " + list.getCleaningDate())

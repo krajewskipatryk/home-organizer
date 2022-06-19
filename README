@@ -1,0 +1,33 @@
+README document contains information and plans for the application improvements and list of actually implemented functionalities:
+
+1. Users (User represents a single person living in any house):
+- Create a user (implemented)
+- Remove a user (implemented)
+- Update the user's info (implemented)
+- Get the user's info (implemented)
+
+2. Groups (Each group represents a single house):
+- Adding a user to the group (in progress)
+- Removing a user from group (in progress)
+- Granting the administrator privileges
+- Granting the moderator privileges
+- Removing the moderator privileges
+- Moving the administrator privileges to the other user
+
+3. House cleaning (Application shows the next person in order that have to clean a house, it reminds about it and shows whose turn is now):
+- Showing the next in order user to clean a house (in progress)
+- Showing the previous user that has cleaned a house (in progress)
+- Marking by the user that a house has been cleaned (in progress)
+- Creating the history of house cleaning (implemented)
+- After cleaning the house, adding the record to the cleaning history (in progress)
+- Listing the whole cleaning history (implemented)
+
+
+4. Shopping list (list of products that everyone use and they are bought by all the people living in the house):
+- Adding a product into the list
+- Check in when user has bought a product from list
+- Show amount of each products bought by each user
+-
+
+5. Chat (Is is used to correspond with other group members):
+- Making a group chat
