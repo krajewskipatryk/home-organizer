@@ -2,9 +2,10 @@ package pl.home.organizer.application.service;
 
 
 import pl.home.organizer.application.dto.HouseCleanerDto;
-import pl.home.organizer.application.dto.ListOfHouseCleaningDto;
 
-public interface HouseCleaningListService {
-    ListOfHouseCleaningDto getCleaningList();
+import java.util.List;
+
+public interface ListHistoryService {
+    List<String> getCleaningList();
     HouseCleanerDto addCleaner(HouseCleanerDto cleanerDto);
 }

@@ -2,9 +2,9 @@ package pl.home.organizer.application.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.home.organizer.application.entity.HouseCleaningListEntity;
+import pl.home.organizer.application.entity.CleaningListHistoryEntity;
 
 @Repository
-public interface HouseCleaningListRepository extends JpaRepository<HouseCleaningListEntity, Long> {
+public interface ListHistoryRepository extends JpaRepository<CleaningListHistoryEntity, Long> {
 
 }

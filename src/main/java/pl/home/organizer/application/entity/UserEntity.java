@@ -18,7 +18,6 @@ public class UserEntity {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(length = 50)
@@ -30,11 +29,10 @@ public class UserEntity {
     @Column(length = 50)
     private String email;
 
-    @Column
-    private String encryptedPassword;
-
     private String emailVerificationToken;
 
-    @Column
     private boolean emailVerificationStatus = false;
+
+    @OneToOne(mappedBy = "user")
+    private CleaningListHistoryEntity cleaningListHistoryEntity;
 }
