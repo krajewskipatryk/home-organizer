@@ -2,8 +2,10 @@ package pl.home.organizer.application.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.home.organizer.application.dto.HouseCleanerDto;
+import pl.home.organizer.application.mapper.ListHistoryMapper;
 import pl.home.organizer.application.model.request.CleanerDetailsRequestModel;
 import pl.home.organizer.application.service.ListHistoryService;
 
@@ -14,13 +16,12 @@ import java.util.List;
 @RequestMapping("cleaning")
 public class ListHistoryController {
     private final ListHistoryService listHistoryService;
+
     @PostMapping
     public String addCleaningPosition(@RequestBody CleanerDetailsRequestModel cleanerDetails) {
-        HouseCleanerDto cleanerDto = new HouseCleanerDto();
+        HouseCleanerDto cleanerDto = ListHistoryMapper.INSTANCE.cleanerDetailsToCleanerDto(cleanerDetails);
 
-        BeanUtils.copyProperties(cleanerDetails, cleanerDto);
-
-        HouseCleanerDto returnValue = listHistoryService.addCleaner(cleanerDto);
+        listHistoryService.addCleaner(cleanerDto);
 
         return "Record has been added correctly!";
     }

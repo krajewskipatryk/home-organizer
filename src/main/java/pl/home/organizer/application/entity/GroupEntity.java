@@ -1,14 +1,13 @@
 package pl.home.organizer.application.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,15 +17,19 @@ import java.util.Set;
 @Table(name="groups")
 public class GroupEntity {
     private static final long serialVersionUID = 1029124663751119778L;
-
     @Id
-    @Column(name="id")
     private String id;
 
-    @Column
+    @Column()
     private String groupName;
 
-    @JsonIgnore
-    @OneToMany
-    private Set<UsersGroupsJoinEntity> users = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "group_has_users",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+    private List<UserEntity> users = new ArrayList<>();
+
+    public void addUser(UserEntity user) {
+        this.users.add(user);
+    }
 }

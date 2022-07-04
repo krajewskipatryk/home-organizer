@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CleanerDetailsRequestModel {
-    String user;
+    String id;
 }

@@ -2,8 +2,10 @@ package pl.home.organizer.application.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.home.organizer.application.dto.GroupDto;
+import pl.home.organizer.application.mapper.GroupMapper;
 import pl.home.organizer.application.model.request.GroupCreationRequestModel;
 import pl.home.organizer.application.service.GroupService;
 
@@ -15,11 +17,9 @@ public class GroupController {
 
     @PostMapping
     String createGroup(@RequestBody GroupCreationRequestModel groupDetails) {
-        GroupDto house = new GroupDto();
+        GroupDto group = GroupMapper.INSTANCE.groupDetailsToGroupDto(groupDetails);
 
-        BeanUtils.copyProperties(groupDetails, house);
-
-        groupService.createGroup(house.getGroupName());
+        groupService.createGroup(group);
 
         return "Group has been created correctly";
     }

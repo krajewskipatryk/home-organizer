@@ -8,14 +8,14 @@ import java.util.Random;
 @Component
 public class IdGenerator {
 
-    private final Random RANDOM = new SecureRandom();
-    private final String ALPHABET = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+    private static final Random RANDOM = new SecureRandom();
+    private static final String ALPHABET = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
 
-    public String generateUserId(int length) {
+    public static String generateUserId(int length) {
         return generateRandomString(length);
     }
 
-    private String generateRandomString(int length) {
+    private static String generateRandomString(int length) {
         StringBuilder returnValue = new StringBuilder(length);
 
         for (int i = 0; i < length; i++) {

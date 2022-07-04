@@ -1,28 +1,30 @@
 package pl.home.organizer.application.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.home.organizer.application.dto.GroupDto;
 import pl.home.organizer.application.entity.GroupEntity;
 import pl.home.organizer.application.entity.UserEntity;
-import pl.home.organizer.application.entity.UsersGroupsJoinEntity;
+import pl.home.organizer.application.mapper.GroupMapper;
 import pl.home.organizer.application.repository.GroupRepository;
 import pl.home.organizer.application.repository.UserRepository;
-import pl.home.organizer.application.repository.UsersGroupsJoinRepository;
 import pl.home.organizer.application.service.GroupService;
+import pl.home.organizer.application.utils.IdGenerator;
 
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
-    private final GroupRepository groupRepository;
-    private final UsersGroupsJoinRepository joinedGroupRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    public GroupRepository groupRepository;
+    @Autowired
+    public UserRepository userRepository;
 
     @Override
-    public void createGroup(String name) {
-        GroupEntity groupEntity = new GroupEntity();
-
-        groupEntity.setGroupName(name);
-        groupEntity.setId("asdf");
+    public void createGroup(GroupDto groupDto) {
+        GroupEntity groupEntity;
+        groupEntity = GroupMapper.INSTANCE.groupDtoToGroupEntity(groupDto);
+        groupEntity.setId(IdGenerator.generateUserId(10));
 
         groupRepository.save(groupEntity);
     }
@@ -32,10 +34,9 @@ public class GroupServiceImpl implements GroupService {
         UserEntity user = userRepository.findById(userId);
         GroupEntity group = groupRepository.findById(groupId);
 
-        UsersGroupsJoinEntity groupJoin = new UsersGroupsJoinEntity();
-        groupJoin.setGroup(group);
-        groupJoin.setUser(user);
+        group.addUser(user);
+        user.addGroup(group);
 
-        joinedGroupRepository.save(groupJoin);
+        groupRepository.save(group);
     }
 }

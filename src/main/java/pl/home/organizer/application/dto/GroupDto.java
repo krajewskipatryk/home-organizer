@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.home.organizer.application.entity.UserEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -12,7 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 public class GroupDto {
-    private long groupId;
-    String groupName;
-    List<String> usersList;
+    private static final long serialVersionUID = 7647438710294323902L;
+    private String id;
+    private String groupName;
+    private List<UserEntity> users = new ArrayList<>();
 }

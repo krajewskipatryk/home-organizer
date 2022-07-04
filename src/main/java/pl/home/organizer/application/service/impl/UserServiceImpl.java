@@ -5,8 +5,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import pl.home.organizer.application.dto.UserDto;
 import pl.home.organizer.application.entity.UserEntity;
-import pl.home.organizer.application.exceptions.UserServiceException;
-import pl.home.organizer.application.model.response.ErrorMessages;
 import pl.home.organizer.application.repository.UserRepository;
 import pl.home.organizer.application.service.UserService;
 import pl.home.organizer.application.utils.IdGenerator;
@@ -59,8 +57,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(String userId, UserDto user) {
-        if (userRepository.findById(userId) == null) throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
         UserEntity userEntity = userRepository.findById(userId);
         userEntity.setFirstName(user.getFirstName());
         userEntity.setLastName(user.getLastName());
@@ -75,8 +71,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto deleteUser(String userId) {
         UserEntity userEntity = userRepository.findById(userId);
-
-        if (userEntity == null) throw new UserServiceException(ErrorMessages.COULD_NOT_DELETE_RECORD.getErrorMessage());
 
         userRepository.delete(userEntity);
 
