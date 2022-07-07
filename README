@@ -7,6 +7,7 @@ README document contains information and plans for the application improvements 
 - Get the user's info (implemented)
 
 2. Groups (Each group represents a single house):
+- Create group (implemented)
 - Adding a user to the group (in progress)
 - Removing a user from group (in progress)
 - Granting the administrator privileges
