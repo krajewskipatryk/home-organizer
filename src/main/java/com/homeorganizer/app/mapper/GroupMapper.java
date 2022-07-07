@@ -6,9 +6,11 @@ import com.homeorganizer.app.model.request.GroupCreationRequestModel;
 import com.homeorganizer.app.model.response.GroupRest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
+    GroupMapper INSTANCE = Mappers.getMapper( GroupMapper.class );
     @Mapping(target = "groupName", source = "groupName")
     GroupDto groupDetailsToGroupDto(GroupCreationRequestModel groupDetails);
     GroupEntity groupDtoToGroupEntity(GroupDto groupDto);

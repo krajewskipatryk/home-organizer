@@ -16,26 +16,30 @@ import org.springframework.stereotype.Service;
 public class GroupServiceImpl implements GroupService {
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
-    private final GroupMapper groupMapper;
 
     @Override
     public GroupDto createGroup(GroupDto groupDto) {
-        GroupEntity groupEntity = groupMapper.groupDtoToGroupEntity(groupDto);
+        GroupEntity groupEntity = GroupMapper.INSTANCE.groupDtoToGroupEntity(groupDto);
         groupEntity.setId(IdGenerator.generateUserId(10));
 
         groupRepository.save(groupEntity);
-        return groupMapper.groupEntityToGroupDto(groupEntity);
+
+        return GroupMapper.INSTANCE.groupEntityToGroupDto(groupEntity);
+    }
+    @Override
+    public GroupDto getGroupInfo(String groupId) {
+        GroupEntity group = groupRepository.findGroupById(groupId);
+
+        return GroupMapper.INSTANCE.groupEntityToGroupDto(group);
     }
 
     @Override
     public void addUserToGroup(String userId, String groupId) {
-        UserEntity user = userRepository.findById(userId);
-        GroupEntity group = groupRepository.findById(groupId);
+        GroupEntity group = groupRepository.findGroupById(groupId);
+        UserEntity user = userRepository.findUserById(userId);
 
         group.addUser(user);
-        user.addGroup(group);
 
         groupRepository.save(group);
-//        userRepository.save(user);
     }
 }

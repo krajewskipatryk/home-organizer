@@ -10,22 +10,26 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("group")
 public class GroupController {
     private final GroupService groupService;
-    private final GroupMapper groupMapper;
 
-    @PostMapping
+    @PostMapping(path="group")
     GroupRest createGroup(@RequestBody GroupCreationRequestModel groupDetails) {
-        GroupDto group = groupMapper.groupDetailsToGroupDto(groupDetails);
+        GroupDto group = GroupMapper.INSTANCE.groupDetailsToGroupDto(groupDetails);
 
         GroupDto returnValue = groupService.createGroup(group);
-        return groupMapper.groupDtoToGroupRest(returnValue);
+        return GroupMapper.INSTANCE.groupDtoToGroupRest(returnValue);
+    }
+
+    @GetMapping(path = "group/{groupId}")
+    GroupRest getGroupInfo(@PathVariable String groupId) {
+        GroupDto groupDto = groupService.getGroupInfo(groupId);
+        return GroupMapper.INSTANCE.groupDtoToGroupRest(groupDto);
     }
 
     @PutMapping(path="group/{groupId}/user/{userId}")
     String addUserToGroup( @PathVariable String groupId, @PathVariable String userId) {
-        groupService.addUserToGroup(groupId, userId);
+        groupService.addUserToGroup(userId, groupId);
         return "User has been added to the group";
     }
 }

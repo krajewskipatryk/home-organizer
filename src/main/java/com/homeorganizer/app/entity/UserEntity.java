@@ -17,7 +17,6 @@ import java.util.List;
 @Table(name="users")
 public class UserEntity {
     @Id
-    @Column(name = "id")
     private String id;
     private String firstName;
     private String lastName;
