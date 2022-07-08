@@ -28,4 +28,8 @@ public class GroupEntity {
     public void addUser(UserEntity user) {
         users.add(user);
     }
+
+    public void removeUser(UserEntity user) {
+        users.remove(user);
+    }
 }

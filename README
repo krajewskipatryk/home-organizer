@@ -9,7 +9,7 @@ README document contains information and plans for the application improvements 
 2. Groups (Each group represents a single house):
 - Create group (implemented)
 - Adding a user to the group (completed)
-- Removing a user from group (in progress)
+- Removing a user from group (completed)
 - Granting the administrator privileges
 - Granting the moderator privileges
 - Removing the moderator privileges

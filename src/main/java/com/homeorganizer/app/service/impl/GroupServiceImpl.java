@@ -42,4 +42,13 @@ public class GroupServiceImpl implements GroupService {
 
         groupRepository.save(group);
     }
+
+    public void removeUserFromGroup(String userId, String groupId) {
+        GroupEntity group = groupRepository.findGroupById(groupId);
+        UserEntity user = userRepository.findUserById(userId);
+
+        group.removeUser(user);
+
+        groupRepository.save(group);
+    }
 }
