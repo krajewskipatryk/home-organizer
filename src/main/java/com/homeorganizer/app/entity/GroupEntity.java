@@ -21,8 +21,8 @@ public class GroupEntity {
     private String groupName;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "group_has_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"))
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<UserEntity> users = new ArrayList<>();
 
     public void addUser(UserEntity user) {
