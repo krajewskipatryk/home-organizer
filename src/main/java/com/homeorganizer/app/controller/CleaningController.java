@@ -12,17 +12,17 @@ public class CleaningController {
     private final CleaningService cleaningService;
 
     @PostMapping("assign")
-    public void assignGroup(@RequestBody GroupIdRequestModel groupDetails) {
+    public void setAssignedGroup(@RequestBody GroupIdRequestModel groupDetails) {
         cleaningService.assignGroup(groupDetails.getId());
     }
 
-    @DeleteMapping("remove/{cleaningId}")
-    public void removeFunctionality(@PathVariable Long cleaningId) {
-        cleaningService.removeCleaningRecord(cleaningId);
+    @DeleteMapping("delete/{cleaningId}")
+    public void deleteCleaning(@PathVariable Long cleaningId) {
+        cleaningService.deleteCleaning(cleaningId);
     }
 
     @PutMapping("approve/{userId}")
-    public void approveCleaning(@RequestBody GroupIdRequestModel groupDetails, @PathVariable String userId) {
+    public void updateCleaningDetails(@RequestBody GroupIdRequestModel groupDetails, @PathVariable String userId) {
         cleaningService.approveCleaning(groupDetails.getId(), userId);
     }
 }

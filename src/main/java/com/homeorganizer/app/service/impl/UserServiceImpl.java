@@ -16,8 +16,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto user) {
-        if (userRepository.findByEmail(user.getEmail()) != null) throw new RuntimeException("The email address already exists!");
-
         UserEntity userEntity = UserMapper.INSTANCE.userDtoToUserEntity(user);
         userEntity.setId(IdGenerator.generateUserId(15));
 
@@ -30,8 +28,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserByUserId(String id) {
         UserEntity userEntity = userRepository.findUserById(id);
-
-        if (userEntity == null) throw new RuntimeException("User not found!");
 
         return UserMapper.INSTANCE.userEntityToUserDto(userEntity);
     }

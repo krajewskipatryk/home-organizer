@@ -19,13 +19,9 @@ public class CleaningServiceImpl implements CleaningService {
     private final GroupRepository groupRepository;
     private final UserRepository userRepository;
 
-
     @Override
     public void assignGroup(String groupId) {
         GroupEntity group = groupRepository.findGroupById(groupId);
-
-        if ( groupRepository.findGroupById(groupId) == null ) throw new RuntimeException("The group does not exist in database!");
-        if ( cleaningRepository.findByAssignedGroup(group) != null ) throw new RuntimeException("The group is already assigned to other cleaning functionality!");
 
         CleaningEntity cleaning = new CleaningEntity();
         cleaning.setAssignedGroup(group);
@@ -36,7 +32,7 @@ public class CleaningServiceImpl implements CleaningService {
     }
 
     @Override
-    public void removeCleaningRecord(Long id) {
+    public void deleteCleaning(Long id) {
         CleaningEntity cleaningEntity = cleaningRepository.findCleaningById(id);
         cleaningRepository.delete(cleaningEntity);
     }
@@ -46,19 +42,15 @@ public class CleaningServiceImpl implements CleaningService {
         GroupEntity group = groupRepository.findGroupById(groupId);
         UserEntity user = userRepository.findUserById(userId);
 
-        if ( groupRepository.findGroupById(groupId) == null ) throw new RuntimeException("The group does not exist in database!");
-        if ( cleaningRepository.findByAssignedGroup(group) == null ) throw new RuntimeException("The group has not been assigned to the cleaning functionality!");
-        if ( !(group.getUsers().contains(user)) ) throw new RuntimeException("The user is not in the group!");
-
         CleaningEntity cleaning = cleaningRepository.findByAssignedGroup(group);
         cleaning.setLastCleaningDate(LocalDate.now());
-        cleaning.setNextCleaningDate(LocalDate.now().plusDays(7));
+        cleaning.setNextCleaningDate(cleaning.getLastCleaningDate().plusDays(7));
 
         cleaning.setRecentlyCleaningUser(user);
 
         int index = group.getUsers().indexOf(user);
 
-        if (group.getUsers().size() == index + 1) {
+        if ( index + 1 == group.getUsers().size() ) {
             cleaning.setNextCleaningUser(group.getUsers().get(0));
         } else {
             cleaning.setNextCleaningUser(group.getUsers().get(index + 1));
@@ -66,7 +58,4 @@ public class CleaningServiceImpl implements CleaningService {
 
         cleaningRepository.save(cleaning);
     }
-
-
-
 }
