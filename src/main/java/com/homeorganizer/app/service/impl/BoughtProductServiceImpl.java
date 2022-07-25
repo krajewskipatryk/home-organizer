@@ -1,13 +1,14 @@
 package com.homeorganizer.app.service.impl;
 
 import com.homeorganizer.app.dto.BoughtProductDto;
-import com.homeorganizer.app.entity.BoughtProduct;
+import com.homeorganizer.app.entity.BoughtProductEntity;
 import com.homeorganizer.app.mapper.BoughtProductMapper;
-import com.homeorganizer.app.repository.BoughtProductRepo;
-import com.homeorganizer.app.repository.GroupRepository;
-import com.homeorganizer.app.repository.ProductRepo;
-import com.homeorganizer.app.repository.UserRepository;
+import com.homeorganizer.app.model.response.BoughtProductRest;
+import com.homeorganizer.app.repository.BoughtProductRepository;
 import com.homeorganizer.app.service.BoughtProductService;
+import com.homeorganizer.app.service.GroupService;
+import com.homeorganizer.app.service.ProductService;
+import com.homeorganizer.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,35 +17,39 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoughtProductServiceImpl implements BoughtProductService {
-    private final UserRepository userRepository;
-    private final GroupRepository groupRepository;
-    private final BoughtProductRepo boughtProductRepo;
-    private final ProductRepo productRepo;
+    private final BoughtProductRepository boughtProductRepository;
+    private final UserService userService;
+    private final GroupService groupService;
+    private final ProductService productService;
+    private final BoughtProductMapper boughtProductMapper;
+
 
     @Override
-    public BoughtProductDto addBoughtProduct(String groupId, String userId, String productName) {
-        BoughtProduct boughtProduct = new BoughtProduct();
-        boughtProduct.setUser(userRepository.findUserById(userId));
-        boughtProduct.setGroup(groupRepository.findGroupById(groupId));
-        boughtProduct.setProduct(productRepo.findByProductName(productName));
+    public BoughtProductRest addBoughtProduct(String groupId, String userId, String productName) {
+        BoughtProductDto boughtProductDto = new BoughtProductDto();
+        boughtProductDto.setUser(userService.getUserEntityById(userId));
+        boughtProductDto.setGroup(groupService.getGroupEntity(groupId));
+        boughtProductDto.setProduct(productService.getProductEntity(productName));
 
-        boughtProductRepo.save(boughtProduct);
+        BoughtProductEntity boughtProductEntity = boughtProductMapper.dtoToEntity(boughtProductDto);
 
-        return BoughtProductMapper.INSTANCE.productToDto(boughtProduct);
+        boughtProductRepository.save(boughtProductEntity);
+
+        return boughtProductMapper.entityToRest(boughtProductEntity);
     }
 
     @Override
-    public List<BoughtProduct> getBoughtProducts(String groupId) {
+    public List<BoughtProductRest> getBoughtProducts(String groupId) {
         return null;
     }
 
     @Override
-    public List<BoughtProduct> getBoughtProducts(String groupId, String userId) {
+    public List<BoughtProductRest> getBoughtProducts(String groupId, String userId) {
         return null;
     }
 
     @Override
-    public List<BoughtProduct> getBoughtProducts(String groupId, String userId, String productName) {
+    public List<BoughtProductRest> getBoughtProducts(String groupId, String userId, String productName) {
         return null;
     }
 }

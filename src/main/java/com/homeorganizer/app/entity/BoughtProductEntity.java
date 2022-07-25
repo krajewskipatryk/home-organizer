@@ -7,12 +7,12 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "BoughtProducts")
-public class BoughtProduct {
+public class BoughtProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
-    private Product product;
+    private ProductEntity product;
     @OneToOne
     private UserEntity user;
     @OneToOne

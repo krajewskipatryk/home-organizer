@@ -1,13 +1,14 @@
 package com.homeorganizer.app.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "product")
-public class Product {
-
+public class ProductEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private String id;
     private String productName;
 }

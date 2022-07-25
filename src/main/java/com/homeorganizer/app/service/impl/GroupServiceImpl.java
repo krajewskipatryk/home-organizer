@@ -1,42 +1,50 @@
 package com.homeorganizer.app.service.impl;
 
-import com.homeorganizer.app.dto.GroupDto;
 import com.homeorganizer.app.entity.GroupEntity;
 import com.homeorganizer.app.entity.UserEntity;
 import com.homeorganizer.app.mapper.GroupMapper;
+import com.homeorganizer.app.model.request.GroupCreationRequestModel;
+import com.homeorganizer.app.model.response.GroupRest;
 import com.homeorganizer.app.repository.GroupRepository;
-import com.homeorganizer.app.repository.UserRepository;
 import com.homeorganizer.app.service.GroupService;
-import com.homeorganizer.app.utils.IdGenerator;
+import com.homeorganizer.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
     private final GroupRepository groupRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final GroupMapper groupMapper;
 
     @Override
-    public GroupDto createGroup(GroupDto groupDto) {
-        GroupEntity groupEntity = GroupMapper.INSTANCE.groupDtoToGroupEntity(groupDto);
-        groupEntity.setId(IdGenerator.generateUserId(10));
+    public GroupRest createGroup(GroupCreationRequestModel groupDetails) {
+        GroupEntity groupEntity = groupMapper.groupDetailsToGroupEntity(groupDetails);
+        groupEntity.setId(String.valueOf(UUID.randomUUID()));
 
         groupRepository.save(groupEntity);
 
-        return GroupMapper.INSTANCE.groupEntityToGroupDto(groupEntity);
+        return groupMapper.groupEntityToGroupRest(groupEntity);
     }
     @Override
-    public GroupDto getGroupInfo(String groupId) {
+    public GroupRest getGroupInfo(String groupId) {
         GroupEntity group = groupRepository.findGroupById(groupId);
 
-        return GroupMapper.INSTANCE.groupEntityToGroupDto(group);
+        return groupMapper.groupEntityToGroupRest(group);
+    }
+
+    @Override
+    public GroupEntity getGroupEntity(String groupId) {
+        return groupRepository.findGroupById(groupId);
     }
 
     @Override
     public void addUserToGroup(String userId, String groupId) {
         GroupEntity group = groupRepository.findGroupById(groupId);
-        UserEntity user = userRepository.findUserById(userId);
+        UserEntity user = userService.getUserEntityById(userId);
 
         group.addUser(user);
 
@@ -45,7 +53,7 @@ public class GroupServiceImpl implements GroupService {
 
     public void removeUserFromGroup(String userId, String groupId) {
         GroupEntity group = groupRepository.findGroupById(groupId);
-        UserEntity user = userRepository.findUserById(userId);
+        UserEntity user = userService.getUserEntityById(userId);
 
         group.removeUser(user);
 

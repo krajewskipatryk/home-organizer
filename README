@@ -26,8 +26,8 @@ README document contains information and plans for the application improvements 
 
 
 4. Shopping list (list of products that everyone use and they are bought by all the people living in the house):
-- Adding a product into the list
-- Check in when user has bought a product from list
+- Adding a productEntity into the list
+- Check in when user has bought a productEntity from list
 - Show amount of each products bought by each user
 -
 

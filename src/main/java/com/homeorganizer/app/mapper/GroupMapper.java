@@ -10,12 +10,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
-    GroupMapper INSTANCE = Mappers.getMapper( GroupMapper.class );
-    @Mapping(target = "groupName", source = "groupName")
-    GroupDto groupDetailsToGroupDto(GroupCreationRequestModel groupDetails);
-    GroupEntity groupDtoToGroupEntity(GroupDto groupDto);
-    GroupDto groupEntityToGroupDto(GroupEntity groupEntity);
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "groupName", source = "groupName")
-    GroupRest groupDtoToGroupRest(GroupDto groupDto);
+    GroupEntity groupDetailsToGroupEntity(GroupCreationRequestModel groupDetails);
+    GroupRest groupEntityToGroupRest(GroupEntity groupEntity);
 }

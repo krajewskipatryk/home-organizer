@@ -15,29 +15,25 @@ import org.springframework.web.bind.annotation.*;
 public class GroupController {
     private final GroupService groupService;
 
-    @PostMapping(path = "create")
+    @PostMapping
     GroupRest createGroup(@RequestBody GroupCreationRequestModel groupDetails) {
-        GroupDto group = GroupMapper.INSTANCE.groupDetailsToGroupDto(groupDetails);
-
-        GroupDto returnValue = groupService.createGroup(group);
-        return GroupMapper.INSTANCE.groupDtoToGroupRest(returnValue);
+        return groupService.createGroup(groupDetails);
     }
 
-    @GetMapping(path = "group/{groupId}")
+    @GetMapping(path="{groupId}")
     GroupRest getGroupInfo(@PathVariable String groupId) {
-        GroupDto groupDto = groupService.getGroupInfo(groupId);
-        return GroupMapper.INSTANCE.groupDtoToGroupRest(groupDto);
+        return groupService.getGroupInfo(groupId);
     }
 
-    @PutMapping(path="add/{groupId}")
-    String addUserToGroup(@RequestBody UserInGroupRequestModel user, @PathVariable String groupId) {
-        groupService.addUserToGroup(user.getUserId(), groupId);
+    @PutMapping(path="add/{groupId}/{userId}")
+    String addUserToGroup(@PathVariable String userId, @PathVariable String groupId) {
+        groupService.addUserToGroup(userId, groupId);
         return "User has been added to the group";
     }
 
-    @PutMapping(path="remove/{groupId}")
-    String removeUserFromGroup(@RequestBody UserInGroupRequestModel user, @PathVariable String groupId) {
-        groupService.removeUserFromGroup(user.getUserId(), groupId);
+    @PutMapping(path="remove/{groupId}/{userId}")
+    String removeUserFromGroup(@PathVariable String userId, @PathVariable String groupId) {
+        groupService.removeUserFromGroup(userId, groupId);
         return "User has been removed from group";
     }
 

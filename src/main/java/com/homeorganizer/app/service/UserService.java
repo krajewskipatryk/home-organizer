@@ -2,10 +2,14 @@ package com.homeorganizer.app.service;
 
 
 import com.homeorganizer.app.dto.UserDto;
+import com.homeorganizer.app.entity.UserEntity;
+import com.homeorganizer.app.model.request.UserDetailsRequestModel;
+import com.homeorganizer.app.model.response.UserRest;
 
 public interface UserService {
-    UserDto createUser(UserDto user);
-    UserDto getUserByUserId(String id);
-    UserDto updateUser(String id, UserDto user);
-    UserDto deleteUser(String id);
+    UserRest createUser(UserDetailsRequestModel user);
+    UserRest getUserByUserId(String id);
+    UserEntity getUserEntityById(String id);
+    UserRest updateUser(String id, UserDetailsRequestModel user);
+    UserRest deleteUser(String id);
 }

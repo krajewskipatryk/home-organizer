@@ -6,14 +6,14 @@ import java.util.List;
 
 @Entity
 @Table(name="shopping_list")
-public class ShoppingList {
+public class ShoppingListEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne
     private GroupEntity assignedGroup;
     @OneToMany
-    private List<Product> productsList = new ArrayList<>();
+    private List<ProductEntity> productsList = new ArrayList<>();
     @OneToMany
-    private List<BoughtProduct> boughtProducts = new ArrayList<>();
+    private List<BoughtProductEntity> boughtProducts = new ArrayList<>();
 }
